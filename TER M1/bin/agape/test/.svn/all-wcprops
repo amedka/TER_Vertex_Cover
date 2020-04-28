@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/Agape/!svn/ver/102/trunk/AGAPE/src/agape/test
+END
+AlgoMISTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/AlgoMISTests.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/Agape/!svn/ver/5/trunk/AGAPE/src/agape/test/package.html
+END
+Test.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/Test.java
+END
+AlgoColoringTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/AlgoColoringTests.java
+END
+DemoAgape.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/DemoAgape.java
+END
+MVC-test-rule2-1.trg
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Agape/!svn/ver/97/trunk/AGAPE/src/agape/test/MVC-test-rule2-1.trg
+END
+Tests.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/Tests.java
+END
+MVC-test-rule5-1.trg
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Agape/!svn/ver/97/trunk/AGAPE/src/agape/test/MVC-test-rule5-1.trg
+END
+MVC-test-rule5-2.trg
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Agape/!svn/ver/97/trunk/AGAPE/src/agape/test/MVC-test-rule5-2.trg
+END
+MVCCompareAlgorithms.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Agape/!svn/ver/102/trunk/AGAPE/src/agape/test/MVCCompareAlgorithms.java
+END
+AlgoDFVSTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/AlgoDFVSTests.java
+END
+ExportSAT.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/ExportSAT.java
+END
+AlgoMVCTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/AlgoMVCTests.java
+END
+Tracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/Agape/!svn/ver/101/trunk/AGAPE/src/agape/test/Tracker.java
+END

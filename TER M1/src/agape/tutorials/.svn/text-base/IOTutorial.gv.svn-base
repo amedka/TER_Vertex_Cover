@@ -1,0 +1,12 @@
+digraph G {
+size="100,20"; ratio = auto;
+node [style=filled];
+"a" -> "b" [color="0.649 0.701 0.701"];
+"b" -> "c" [color="0.649 0.701 0.701"];
+"b" -> "d" [color="0.649 0.701 0.701"];
+"c" -> "d" [color="0.649 0.701 0.701"];
+"d" [color=grey];
+"b" [color=grey];
+"c" [color=grey];
+"a" [color=grey];
+}
