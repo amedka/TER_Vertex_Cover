@@ -1,78 +1,78 @@
+
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
-//A REFAIRE, c'était juste pour tester
-public class Graphe {
-	private ArrayList<String> sommets = new ArrayList<String>();
-	private ArrayList<String[]> aretes = new ArrayList<String[]>();
+import javax.swing.JFrame;
+
+import org.apache.commons.collections15.Factory;
+
+import edu.uci.ics.jung.algorithms.generators.random.ErdosRenyiGenerator;
+import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.graph.AbstractGraph;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.UndirectedGraph;
+import edu.uci.ics.jung.graph.UndirectedSparseGraph;
+import edu.uci.ics.jung.graph.util.EdgeType;
+import edu.uci.ics.jung.graph.util.Pair;
+import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+
+public class Graphe{
 	
-	public Graphe() {
+	Graph myGraphe;
+	
+	public Graph getGraphe() {
+		return myGraphe;
 	}
 	
-	//constructeur pour générer un graphe pas si random
-	public Graphe(int nbSommets) {
-		Graphe rand = this.generateRandomGraphe(nbSommets);
-		this.sommets = rand.sommets;
-		this.aretes = rand.aretes;
+	//Erdos RenyiGenerator
+	//pour un nombre de sommets et une probabilité donnés, génère un graphe aléatoire
+	public Graphe(int nbSommets, double propability) {
+			Factory<UndirectedGraph<Integer,String>> grapheFactory = 
+	            new Factory<UndirectedGraph<Integer,String>>() {
+	                public UndirectedGraph<Integer,String> create() {
+	                	UndirectedGraph<Integer, String> g = new UndirectedSparseGraph<Integer, String>();
+	                	return g;
+	                }
+	           	};
+	        Factory<Integer> vertexFactory = 
+	            new Factory<Integer>() {
+	                int count;
+	                public Integer create() {
+	                    return count++;
+            }};
+            Factory<String> edgeFactory = 
+	            new Factory<String>() {
+			    	String s =  "E";
+			    	int count;
+	                public String create() {
+	                    count++;
+	                    return s+count;
+            }};
+
+        ErdosRenyiGenerator generator = new ErdosRenyiGenerator(grapheFactory, vertexFactory, edgeFactory, nbSommets, propability);
+		myGraphe = generator.create();
 	}
-	
-	public Graphe(ArrayList<String> s, ArrayList<String[]> a) {
-		sommets=s;
-		aretes=a;
-	}
-	
-	public ArrayList<String> getSommets() {
-		return sommets;
-	}
-	
-	public ArrayList<String[]> getAretes(){
-		return aretes;
-	}
-	
-	public void setSommets(ArrayList<String> s) {
-		sommets=s;
-	}
-	
-	public void setAretes(ArrayList<String []> a) {
-		aretes=a;
-	}
-	
-	public Graphe generateRandomGraphe(int nbSommets) {
-		//pas si random
-		//les aretes peuvent apparaitre en doublon
-		Graphe random = new Graphe();
-		Random rand = new Random();
-		int nbAretes = rand.nextInt(((nbSommets*(nbSommets-1))/2)+1);
-		ArrayList<String> sommets = new ArrayList<String>();
-		ArrayList<String[]> aretes = new ArrayList<String[]>();
-		for(int i=0; i<nbSommets;i++) {
-			sommets.add("s"+i);
-		}
-		for(int i=0; i<nbAretes;i++) {
-			int s1 = rand.nextInt(nbSommets);
-			int s2 = rand.nextInt(nbSommets);
-			String tab[] = new String[2];
-			aretes.add(tab);
-			aretes.get(i)[0]=sommets.get(s1);
-			aretes.get(i)[1]=sommets.get(s2);
-		}
-		random.setSommets(sommets);
-		random.setAretes(aretes);
-		return random;
-	}
-	
-	public String toString() {
-		String res="";
-		res += "Ce graphe possède "+this.getSommets().size()+" sommets.\n";
-		for(int i=0; i<this.getSommets().size();i++) {
-			res += this.getSommets().get(i)+" ";
-		}
-		res += "\n";
-		res += "Ce graphe possède "+this.getAretes().size()+" aretes.\n";
-		for(int i=0; i<this.getAretes().size();i++) {
-			res += "("+this.getAretes().get(i)[0]+";"+this.getAretes().get(i)[1]+") ";
-		}
-		res+="\n";
-		return res;
+
+	//affiche le graphe dans une fenêtre à part
+	public void visualization() {
+		Layout<Integer, String> layout = new CircleLayout(myGraphe);
+		layout.setSize(new Dimension(1000,1000));
+		BasicVisualizationServer<Integer,String> vv =
+		new BasicVisualizationServer<Integer,String>(layout);
+		vv.setPreferredSize(new Dimension(1000,1000));
+		
+		//affichent nom sommet/arete si besoin
+		//vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+		//vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+		
+		
+		JFrame frame = new JFrame("Simple Graph View");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(vv);
+		frame.pack();
+		frame.setVisible(true);
 	}
 }

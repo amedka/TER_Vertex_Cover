@@ -7,8 +7,9 @@ public class Application {
 		
 		//je crée une liste de deux graphes random
 		ArrayList<Graphe> mesGraphes = new ArrayList<Graphe>();
-		Graphe random100 = new Graphe(100);
-		Graphe random10 = new Graphe(10);
+		Graphe random100 = new Graphe(100,0.1);
+		Graphe random10 = new Graphe(10, 0.5);
+		random10.visualization();
 		mesGraphes.add(random10);
 		mesGraphes.add(random100);
 		
