@@ -25,8 +25,30 @@ public class Graphe{
 	Graph myGraphe;
 	Factory<UndirectedGraph<Integer,String>> grapheFactory;
 	
+	//constructeur utile pour instancier un Graphe à partir d'un fichier texte
+	public Graphe() {
+		grapheFactory = 
+	            new Factory<UndirectedGraph<Integer,String>>() {
+	                public UndirectedGraph<Integer,String> create() {
+	                	UndirectedGraph<Integer, String> g = new UndirectedSparseGraph<Integer, String>();
+	                	return g;
+	                }
+	           	};
+	}
+	
 	public Graph getGraphe() {
 		return myGraphe;
+	}
+	
+	public void setGraphe(Graph g) {
+		myGraphe=g;
+	}
+	
+
+	
+	
+	public Factory<UndirectedGraph<Integer,String>> getFactory(){
+		return grapheFactory;
 	}
 	
 	//Erdos RenyiGenerator
@@ -78,7 +100,7 @@ public class Graphe{
 		frame.setVisible(true);
 	}
 	
-	public Factory<UndirectedGraph<Integer,String>> getFactory(){
-		return grapheFactory;
+	public String toString() {
+		return this.getGraphe().toString();	
 	}
 }

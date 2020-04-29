@@ -2,18 +2,20 @@ package Batterie;
 //objet généré lors de l'appel de la méthode run() d'un VertexCover
 public class Resultat {
 	
-	private long tempsExec;
+	private float tempsExec;
 	private boolean reponse;
+	private String nomAlgo;
 	
 	public Resultat() {
 	}
 	
-	public Resultat(long l, boolean r) {
+	public Resultat(long l, boolean r, String s) {
 		tempsExec=l;
 		reponse=r;
+		nomAlgo=s;
 	}
 	
-	public long getTemps() {
+	public float getTemps() {
 		return tempsExec;
 	}
 	
@@ -21,7 +23,11 @@ public class Resultat {
 		return reponse;
 	}
 	
-	public void setTemps(long l) {
+	public String getAlgo() {
+		return nomAlgo;
+	}
+	
+	public void setTemps(float l) {
 		tempsExec=l;
 	}
 	
@@ -29,10 +35,14 @@ public class Resultat {
 		reponse=r;
 	}
 	
+	public void setAlgo(String s) {
+		nomAlgo=s;
+	}
+	
 	public String toString() {
 		String res = "";
 		res += "Réponse :"+reponse+"\n";
-		res += "Temps d'éxécution : "+tempsExec+"\n";
+		res += "Temps d'éxécution : "+tempsExec+" millisecondes\n";
 		return res;
 	}
 }

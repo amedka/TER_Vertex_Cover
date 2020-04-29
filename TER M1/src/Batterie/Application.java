@@ -1,35 +1,41 @@
 package Batterie;
+import Algorithmes.*;
 import java.util.ArrayList;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
 public class Application {
+	
 	public static void main(String[] args) {
 		
-		//je crée une liste de deux graphes random
-		ArrayList<Graphe> mesGraphes = new ArrayList<Graphe>();
+		ArrayList<Graphe> mesGraphes;
+		ArrayList<VertexCover> mesAlgos=new ArrayList<>();
 		
-		for(int i=0; i<7; i++) {
-			mesGraphes.add(new Graphe(10,0.1));
-		}
-		/*
-		Graphe random100 = new Graphe(100,0.1);
-		Graphe random10 = new Graphe(10,0.5);
-		random10.visualization();
-		mesGraphes.add(random10);
-		mesGraphes.add(random100);
-		*/
-		//je crée une liste d'algo a partir de deux implementations 
-		ArrayList<VertexCover> mesAlgos = new ArrayList<VertexCover>();
-		VertexCover v1 = new BruteForce();
-		//VertexCover v2 = new VertexCover2();
-		mesAlgos.add(v1);
-		//mesAlgos.add(v2);
+		//crée un fichier "test1.txt" de 10 graphes de taille 200 avec 50% de chance que chaque arête existe
+		//méthode de génération : ErdosRenyi
+		GestionnaireDeFichiers.creerFichierErdosRenyi("test1.txt", 10, 300, 0.5);
 		
-		//je génère les résultats pour n=10
+		//récupere les graphes du fichier "test1.txt" et les ajoute dans une ArrayList
+		mesGraphes = GestionnaireDeFichiers.recupererFichierGraphes("mesGraphes/ErdosRenyi/test1.txt");
+		
+		//test avec les algorithmes degreeBranchingStrategy et bussGoldMmith de la bibliotheque Agape 
+		VertexCover bussGoldSmith = new BussGoldSmith();
+		VertexCover degreeBranchingStrategy = new DegreeBranchingStrategy();
+		mesAlgos.add(degreeBranchingStrategy);
+		mesAlgos.add(bussGoldSmith);
+		
+		//création de la batterie de test
 		BatterieTest b = new BatterieTest(mesGraphes, mesAlgos);
-		b.runBatterie(3);
-		System.out.println("Temps d'exec moyen : "+b.moyenne()+" millisecondes");
-		System.out.println("Temps d'exec total : "+b.tempsTotal()+" millisecondes");		
+		//on test pour n=5
+		b.runBatterie(5);
+		
+		//génère le fichier des résultats au format csv
+		GestionnaireDeFichiers.creerResultat("test1.csv", b.getResultats());
+		
+		//récupère le fichier csv et affiche les courbes
+		GestionnaireDeFichiers.afficheCourbe("test1.csv");
+
 	}
+
 }
