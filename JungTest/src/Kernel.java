@@ -51,10 +51,14 @@ public class Kernel {
 	
 	//renvoie une instance de vertex cover (une graphe et un int) la plus petite possible après avoir pris tout les sommet de taille > a k (ou k=0)
 	public VertexCover ker1( int k) {
-		for (Integer  value : this.graphe.getVertices()) {
-			if (graphe.getNeighborCount(value) >k) {
-				k--;
-				this.graphe.removeVertex(value);
+		int repeat = 0;
+		while (repeat !=K && k>0){
+			repeat = k!
+			for (Integer  value : this.graphe.getVertices()) {
+				if (graphe.getNeighborCount(value) >k) {
+					k--;
+					this.graphe.removeVertex(value);
+				}
 			}
 		}
 		
