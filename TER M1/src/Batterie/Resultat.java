@@ -1,48 +1,50 @@
 package Batterie;
-//objet généré lors de l'appel de la méthode run() d'un VertexCover
+
+//objet gï¿½nï¿½rï¿½ lors de l'appel de la mï¿½thode run() d'un VertexCover
 public class Resultat {
-	
+
 	private float tempsExec;
 	private boolean reponse;
 	private String nomAlgo;
-	
+
 	public Resultat() {
 	}
-	
+
 	public Resultat(long l, boolean r, String s) {
-		tempsExec=l;
-		reponse=r;
-		nomAlgo=s;
+		this.tempsExec = l;
+		this.reponse = r;
+		this.nomAlgo = s;
 	}
-	
+
 	public float getTemps() {
-		return tempsExec;
+		return this.tempsExec;
 	}
-	
+
 	public boolean getRep() {
-		return reponse;
+		return this.reponse;
 	}
-	
+
 	public String getAlgo() {
-		return nomAlgo;
+		return this.nomAlgo;
 	}
-	
+
 	public void setTemps(float l) {
-		tempsExec=l;
+		this.tempsExec = l;
 	}
-	
+
 	public void setRep(boolean r) {
-		reponse=r;
+		this.reponse = r;
 	}
-	
+
 	public void setAlgo(String s) {
-		nomAlgo=s;
+		this.nomAlgo = s;
 	}
-	
+
+	@Override
 	public String toString() {
 		String res = "";
-		res += "Réponse :"+reponse+"\n";
-		res += "Temps d'éxécution : "+tempsExec+" millisecondes\n";
+		res += "Rï¿½ponse :" + this.reponse + "\n";
+		res += "Temps d'ï¿½xï¿½cution : " + this.tempsExec + " millisecondes\n";
 		return res;
 	}
 }

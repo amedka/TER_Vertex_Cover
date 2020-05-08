@@ -1,5 +1,5 @@
 /*
- * Copyright University of Orleans - ENSI de Bourges. 
+ * Copyright University of Orleans - ENSI de Bourges.
  * Source code under CeCILL license.
  */
 package agape.tutorials;
@@ -15,28 +15,34 @@ public class UsingFactoriesTutorial {
 	public static void main(String[] args) {
 
 		Factory<Integer> edgeFactory = new Factory<Integer>() {
-			int c=0;
+			int c = 0;
+
+			@Override
 			public Integer create() {
-				c++;
-				return Integer.valueOf(c);
+				this.c++;
+				return this.c;
 			}
 		};
 
 		Factory<String> vertexFactory = new Factory<String>() {
-			int c=0;
+			int c = 0;
+
+			@Override
 			public String create() {
-				c++;
-				return "v"+c;
+				this.c++;
+				return "v" + this.c;
 			}
 		};
 
-		Factory<Graph<String,Integer>> graphFactory = new Factory<Graph<String,Integer>>() {
-			public Graph<String,Integer> create() {
+		Factory<Graph<String, Integer>> graphFactory = new Factory<Graph<String, Integer>>() {
+			@Override
+			public Graph<String, Integer> create() {
 				return new UndirectedSparseGraph<String, Integer>();
 			}
 		};
 
-		Graph<String, Integer> g = RandGenerator.generateErdosRenyiGraph(graphFactory, vertexFactory, edgeFactory, 10, 3);
+		Graph<String, Integer> g = RandGenerator.generateErdosRenyiGraph(graphFactory, vertexFactory, edgeFactory, 10,
+				3);
 		System.out.println(g);
 
 		Visualization.showGraph(g);

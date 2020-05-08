@@ -1,4 +1,14 @@
 package Batterie;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -11,90 +21,75 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class TestChart extends JFrame {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -1875964637529997015L;
 	HashMap<String, ArrayList<Float>> map;
-    public TestChart(HashMap<String, ArrayList<Float>> m) {
-    	map = m;
-        initUI();
-    }
 
-    public void initUI() {
+	public TestChart(HashMap<String, ArrayList<Float>> m) {
+		this.map = m;
+		this.initUI();
+	}
 
-        XYDataset dataset = createDataset();
-        JFreeChart chart = createChart(dataset);
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        chartPanel.setBackground(Color.white);
-        
-        add(chartPanel);
+	public void initUI() {
 
-        pack();
-        setTitle("Line chart");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+		XYDataset dataset = this.createDataset();
+		JFreeChart chart = this.createChart(dataset);
+		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+		chartPanel.setBackground(Color.white);
 
-    public XYDataset createDataset() {
+		this.add(chartPanel);
 
-        XYSeriesCollection dataset = new XYSeriesCollection();
-    	XYSeries currentSerie;
-    	ArrayList<String> keys = new ArrayList<String>(map.keySet());
-    	for(int i=0; i<keys.size();i++) {
-    		currentSerie=new XYSeries(keys.get(i));
-    		int cpt=1;
-    		for(int j=0; j<map.get(keys.get(i)).size();j++) {
-    			currentSerie.add(cpt, map.get(keys.get(i)).get(j));
-    			cpt++;
-    		}
-            dataset.addSeries(currentSerie);
-    	}
-        return dataset;
-    }
+		this.pack();
+		this.setTitle("Line chart");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 
-    public JFreeChart createChart(final XYDataset dataset) {
+	public XYDataset createDataset() {
 
-        JFreeChart chart = ChartFactory.createXYLineChart(
-                "Temps d'execution des differents algorithmes",
-                "Numéro du graphe",
-                "Millisecondes",
-                dataset,
-                PlotOrientation.VERTICAL,
-                true,
-                true,
-                false
-        );
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		XYSeries currentSerie;
+		ArrayList<String> keys = new ArrayList<String>(this.map.keySet());
+		for (int i = 0; i < keys.size(); i++) {
+			currentSerie = new XYSeries(keys.get(i));
+			int cpt = 1;
+			for (int j = 0; j < this.map.get(keys.get(i)).size(); j++) {
+				currentSerie.add(cpt, this.map.get(keys.get(i)).get(j));
+				cpt++;
+			}
+			dataset.addSeries(currentSerie);
+		}
+		return dataset;
+	}
 
-        XYPlot plot = chart.getXYPlot();
+	public JFreeChart createChart(final XYDataset dataset) {
 
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+		JFreeChart chart = ChartFactory.createXYLineChart("Temps d'execution des differents algorithmes",
+				"Numï¿½ro du graphe", "Millisecondes", dataset, PlotOrientation.VERTICAL, true, true, false);
 
-        renderer.setSeriesPaint(0, Color.RED);
-        renderer.setSeriesStroke(0, new BasicStroke(2.0f));
-        renderer.setSeriesPaint(1, Color.BLUE);
-        renderer.setSeriesStroke(1, new BasicStroke(2.0f));
+		XYPlot plot = chart.getXYPlot();
 
-        plot.setRenderer(renderer);
-        plot.setBackgroundPaint(Color.white);
-        plot.setRangeGridlinesVisible(false);
-        plot.setDomainGridlinesVisible(false);
+		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 
-        chart.getLegend().setFrame(BlockBorder.NONE);
+		renderer.setSeriesPaint(0, Color.RED);
+		renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+		renderer.setSeriesPaint(1, Color.BLUE);
+		renderer.setSeriesStroke(1, new BasicStroke(2.0f));
 
-        chart.setTitle(new TextTitle("Temps d'execution des differents algorithmes",
-                        new Font("Serif", Font.BOLD, 18)
-                )
-        );
+		plot.setRenderer(renderer);
+		plot.setBackgroundPaint(Color.white);
+		plot.setRangeGridlinesVisible(false);
+		plot.setDomainGridlinesVisible(false);
 
-        return chart;
-    }
+		chart.getLegend().setFrame(BlockBorder.NONE);
+
+		chart.setTitle(new TextTitle("Temps d'execution des differents algorithmes", new Font("Serif", Font.BOLD, 18)));
+
+		return chart;
+	}
 }

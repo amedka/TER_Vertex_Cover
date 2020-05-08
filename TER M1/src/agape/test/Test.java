@@ -19,43 +19,46 @@ import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
 public class Test {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        Graph<String, Integer> g = Import.readNet("test.net");
-        final int ei=g.getEdgeCount();
-        final int vi=g.getVertexCount();
+		Graph<String, Integer> g = Import.readNet("test.net");
+		final int ei = g.getEdgeCount();
+		final int vi = g.getVertexCount();
 
+		Factory<Integer> edgeFactory = new Factory<Integer>() {
+			int c = ei;
 
-        Factory<Integer> edgeFactory = new Factory<Integer>() {
-            int c=ei;
-            public Integer create() {
-                c++;
-                return Integer.valueOf(c);
-            }
-        };
+			@Override
+			public Integer create() {
+				this.c++;
+				return this.c;
+			}
+		};
 
-        Factory<String> vertexFactory = new Factory<String>() {
-            int c=vi;
-            public String create() {
-                c++;
-                return "v"+c;
-            }
-        };
+		Factory<String> vertexFactory = new Factory<String>() {
+			int c = vi;
 
-        Factory<Graph<String,Integer>> graphFactory = new Factory<Graph<String,Integer>>() {
-            public Graph<String,Integer> create() {
-                return new UndirectedSparseGraph<String, Integer>();
-            }
-        };
-        
+			@Override
+			public String create() {
+				this.c++;
+				return "v" + this.c;
+			}
+		};
 
-        MIS<String,Integer> alg = new MIS<String,Integer>(graphFactory, vertexFactory, edgeFactory);
+		Factory<Graph<String, Integer>> graphFactory = new Factory<Graph<String, Integer>>() {
+			@Override
+			public Graph<String, Integer> create() {
+				return new UndirectedSparseGraph<String, Integer>();
+			}
+		};
 
-        System.out.println("Stable Maximum (V1 (min vertex))");
-        double t=System.currentTimeMillis();
-        Set<String> S=alg.maximumIndependentSetMoonMoser(g);
-        t=System.currentTimeMillis()-t;
-        System.out.println(t);
-        System.out.println(S.size()+" : "+S);
-    }
+		MIS<String, Integer> alg = new MIS<String, Integer>(graphFactory, vertexFactory, edgeFactory);
+
+		System.out.println("Stable Maximum (V1 (min vertex))");
+		double t = System.currentTimeMillis();
+		Set<String> S = alg.maximumIndependentSetMoonMoser(g);
+		t = System.currentTimeMillis() - t;
+		System.out.println(t);
+		System.out.println(S.size() + " : " + S);
+	}
 }
