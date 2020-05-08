@@ -3,6 +3,7 @@ package Batterie;
 import java.util.ArrayList;
 
 import Algorithmes.BussGoldSmith;
+import Algorithmes.Constraint;
 import Algorithmes.DegreeBranchingStrategy;
 import Algorithmes.VertexCover;
 
@@ -25,8 +26,11 @@ public class Application {
 		// bibliotheque Agape
 		VertexCover bussGoldSmith = new BussGoldSmith();
 		VertexCover degreeBranchingStrategy = new DegreeBranchingStrategy();
+		VertexCover constraint = new Constraint();
+		
 		mesAlgos.add(degreeBranchingStrategy);
 		mesAlgos.add(bussGoldSmith);
+		mesAlgos.add(constraint);
 
 		// cr�ation de la batterie de test
 		BatterieTest b = new BatterieTest(mesGraphes, mesAlgos);
