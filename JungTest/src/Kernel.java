@@ -66,6 +66,21 @@ public class Kernel {
 		
 	}
 	
+	// un brutforce pour le vertex cover de taille K
+	public boolean brutForce (int k, Graph<Integer, String> graph) {
+		if (graph.getEdgeCount()==0) {return true;}
+		if (k==0) {return false;}
+		for (Integer  value : graph.getVertices()) {
+			Graph<Integer, String> gtemp = graph;
+			gtemp.removeVertex(value);
+			if (brutForce(k--, gtemp)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 }
 	
 
