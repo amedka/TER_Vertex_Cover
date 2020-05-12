@@ -5,7 +5,7 @@ import org.chocosolver.solver.variables.IntVar;
 
 import Batterie.Graphe;
 
-public class Constraint extends VertexCover {
+public class Constraint extends AlgoExacte {
 
 	private Model model;
 

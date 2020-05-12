@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import org.apache.commons.collections15.Factory;
 
+import Algorithmes.VertexCover;
 import edu.uci.ics.jung.algorithms.generators.random.ErdosRenyiGenerator;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -16,6 +17,7 @@ import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 
 public class Graphe {
 
+	static int test = 0;
 	Graph<Integer, String> myGraphe;
 	Factory<UndirectedGraph<Integer, String>> grapheFactory;
 
@@ -99,4 +101,61 @@ public class Graphe {
 	public String toString() {
 		return this.getGraphe().toString();
 	}
+	
+
+	
+	// modifie le graphe : supprime les sommets isolés
+	public void ker0() {
+		for (Integer  value : this.myGraphe.getVertices()) {
+			if (this.myGraphe.getNeighborCount(value)==0) {
+				this.myGraphe.removeVertex(value);
+			}
+		}
+	}
+	
+	
+	//renvoie une instance de vertex cover (une graphe et un int) la plus petite possible aprÃ¨s avoir pris tout les sommet de taille > a k (ou k=0)
+	public int ker1(int k) {
+		int repeat = 0;
+		while (repeat !=k && k>0){
+			repeat = k;
+			for (Integer  value : this.myGraphe.getVertices()) {
+				if (myGraphe.getNeighborCount(value) > k) {
+					k--;
+					this.myGraphe.removeVertex(value);
+				}
+			}
+		}
+		return k;
+	}
+	
+	//applique les deux algos de kernalisation et retourne k
+	public int kerFusion(int k) {
+		new Thread(new Runnable() {
+			public void run() {
+
+			    //do long running blocking bg stuff here
+			    new Runnable() {
+			        public void run() {
+			    		ker0();
+			        }   
+			    };
+			}
+		}).start();
+		new Thread(new Runnable() {
+			public void run() {
+
+			    //do long running blocking bg stuff here
+			    new Runnable() {
+			        public void run() {
+			    		test= ker1(k);
+			        }   
+			    };
+			}
+		}).start();
+		return test;
+	}
+	
+	
 }
+	

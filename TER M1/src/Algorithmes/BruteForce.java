@@ -3,7 +3,7 @@ package Algorithmes;
 import Batterie.Graphe;
 import agape.algos.MVC;
 
-public class BruteForce extends VertexCover {
+public class BruteForce extends AlgoExacte {
 
 	@Override
 	public boolean algo(int n, Graphe g) {

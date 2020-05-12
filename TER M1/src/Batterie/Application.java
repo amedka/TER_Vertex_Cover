@@ -5,43 +5,43 @@ import java.util.ArrayList;
 import Algorithmes.BussGoldSmith;
 import Algorithmes.Constraint;
 import Algorithmes.DegreeBranchingStrategy;
+import Algorithmes.GreedyCoverMaxDegree;
 import Algorithmes.VertexCover;
 
 public class Application {
 
 	public static void main(String[] args) {
 
+
+		GestionnaireDeFichiers.creerFichierErdosRenyi("test1.txt", 10, 100, 0.5);
+		
 		ArrayList<Graphe> mesGraphes;
-		ArrayList<VertexCover> mesAlgos = new ArrayList<>();
-
-		// cr�e un fichier "test1.txt" de 10 graphes de taille 200 avec 50% de chance
-		// que chaque ar�te existe
-		// m�thode de g�n�ration : ErdosRenyi
-		GestionnaireDeFichiers.creerFichierErdosRenyi("test1.txt", 10, 300, 0.5);
-
-		// r�cupere les graphes du fichier "test1.txt" et les ajoute dans une ArrayList
 		mesGraphes = GestionnaireDeFichiers.recupererFichierGraphes("mesGraphes/ErdosRenyi/test1.txt");
 
-		// test avec les algorithmes degreeBranchingStrategy et bussGoldMmith de la
-		// bibliotheque Agape
 		VertexCover bussGoldSmith = new BussGoldSmith();
 		VertexCover degreeBranchingStrategy = new DegreeBranchingStrategy();
 		VertexCover constraint = new Constraint();
+		VertexCover greedyCoverMaxDegree = new GreedyCoverMaxDegree();
 		
-		mesAlgos.add(degreeBranchingStrategy);
-		mesAlgos.add(bussGoldSmith);
-		mesAlgos.add(constraint);
+		ArrayList<VertexCover> mesAlgosExact = new ArrayList<>();
+		mesAlgosExact.add(degreeBranchingStrategy);
+		mesAlgosExact.add(bussGoldSmith);
+		mesAlgosExact.add(constraint);
+		
+		ArrayList<VertexCover> mesAlgosApprox = new ArrayList<>();
+		mesAlgosApprox.add(greedyCoverMaxDegree);
 
-		// cr�ation de la batterie de test
-		BatterieTest b = new BatterieTest(mesGraphes, mesAlgos);
-		// on test pour n=5
-		b.runBatterie(5);
-
-		// g�n�re le fichier des r�sultats au format csv
+		// batterie destinee a des algos exacts
+		BatterieTest b = new BatterieTest(mesGraphes, mesAlgosExact);
+		b.runBatterieKernel(5);
 		GestionnaireDeFichiers.creerResultat("test1.csv", b.getResultats());
-
-		// r�cup�re le fichier csv et affiche les courbes
-		GestionnaireDeFichiers.afficheCourbe("test1.csv");
+		GestionnaireDeFichiers.afficheCourbe("Exact_test1.csv");
+		
+		//batterie destinee a des algos d'approx
+		BatterieTest b2 = new BatterieTest(mesGraphes, mesAlgosApprox);
+		b2.runBatterie(5);
+		GestionnaireDeFichiers.creerResultat("test2.csv", b2.getResultats());
+		GestionnaireDeFichiers.afficheCourbe("Approx_test2.csv");
 
 	}
 

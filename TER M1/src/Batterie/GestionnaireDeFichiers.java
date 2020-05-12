@@ -30,8 +30,8 @@ public class GestionnaireDeFichiers {
 
 			}
 			writer.close();
-			System.out.println("Le fichier " + titreFichier + " a ï¿½tï¿½ crï¿½e correctement.");
-			System.out.println(nbGraphes + " graphes de taille " + nbSommets + " ont ï¿½tï¿½ gï¿½nï¿½rï¿½s.");
+			System.out.println("Le fichier " + titreFichier + " a ete ecrit correctement.");
+			System.out.println(nbGraphes + " graphes de taille " + nbSommets + " ont ete genere.");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -89,15 +89,36 @@ public class GestionnaireDeFichiers {
 	public static void creerResultat(String titreFichier, ArrayList<Resultat> mesResultats) {
 		try {
 			Resultat resCourant;
-			PrintWriter writer = new PrintWriter("Resultats/" + titreFichier);
-			writer.println("Algorithme utilisï¿½, Rï¿½sultat, Temps d'ï¿½xï¿½cution (en millisecondes)");
-			for (int i = 0; i < mesResultats.size(); i++) {
-				resCourant = mesResultats.get(i);
-				writer.println(resCourant.getAlgo() + "," + resCourant.getRep() + "," + resCourant.getTemps());
+			//c'est un résultat exacte
+			if(mesResultats.get(0).getRep()<0) {
+				PrintWriter writer = new PrintWriter("Resultats/Exact_" + titreFichier);
+				writer.println("Algorithme utilise, Resultat, Temps d'execution (en millisecondes)");
+				for (int i = 0; i < mesResultats.size(); i++) {
+					resCourant = mesResultats.get(i);
+					if(resCourant.getRep()==-2)
+						writer.println(resCourant.getAlgo() + ", FALSE ," + resCourant.getTemps());
+					else
+						writer.println(resCourant.getAlgo() + ", TRUE ," + resCourant.getTemps());
+				}
+
+				writer.close();
+				System.out.println("Les resultats ont ete ecrit correctement.");
+				
+			}
+			//c'est un resultat d'approximation
+			else {
+				PrintWriter writer = new PrintWriter("Resultats/Approx_" + titreFichier);
+				writer.println("Algorithme utilise, Resultat, Temps d'execution (en millisecondes)");
+				for (int i = 0; i < mesResultats.size(); i++) {
+					resCourant = mesResultats.get(i);
+					writer.println(resCourant.getAlgo() + "," + resCourant.getRep() + "," + resCourant.getTemps());
+				}
+
+				writer.close();
+				System.out.println("Les resultats ont ete ecrit correctement.");
+				
 			}
 
-			writer.close();
-			System.out.println("Les rï¿½sultats ont ï¿½tï¿½ crï¿½ï¿½ correctement.");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -105,7 +126,7 @@ public class GestionnaireDeFichiers {
 
 	// affiche courbe
 	public static void afficheCourbe(String chemin) {
-		System.out.println("affichage des temps d'ï¿½xï¿½cutions");
+		System.out.println("affichage des temps d'executions");
 		// lire le csv et gï¿½nï¿½re une hashmap avec comme clï¿½ l'algo et comme valeur la
 		// liste des temps d'ï¿½xec
 		CSVReader reader;

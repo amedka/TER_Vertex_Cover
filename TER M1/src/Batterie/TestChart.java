@@ -70,7 +70,7 @@ public class TestChart extends JFrame {
 	public JFreeChart createChart(final XYDataset dataset) {
 
 		JFreeChart chart = ChartFactory.createXYLineChart("Temps d'execution des differents algorithmes",
-				"Numï¿½ro du graphe", "Millisecondes", dataset, PlotOrientation.VERTICAL, true, true, false);
+				"Numéro du graphe", "Millisecondes", dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		XYPlot plot = chart.getXYPlot();
 

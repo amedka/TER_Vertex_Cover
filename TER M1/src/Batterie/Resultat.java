@@ -4,13 +4,13 @@ package Batterie;
 public class Resultat {
 
 	private float tempsExec;
-	private boolean reponse;
+	private int reponse;
 	private String nomAlgo;
 
 	public Resultat() {
 	}
 
-	public Resultat(long l, boolean r, String s) {
+	public Resultat(long l, int r, String s) {
 		this.tempsExec = l;
 		this.reponse = r;
 		this.nomAlgo = s;
@@ -20,7 +20,7 @@ public class Resultat {
 		return this.tempsExec;
 	}
 
-	public boolean getRep() {
+	public int getRep() {
 		return this.reponse;
 	}
 
@@ -32,7 +32,7 @@ public class Resultat {
 		this.tempsExec = l;
 	}
 
-	public void setRep(boolean r) {
+	public void setRep(int r) {
 		this.reponse = r;
 	}
 
@@ -43,8 +43,8 @@ public class Resultat {
 	@Override
 	public String toString() {
 		String res = "";
-		res += "R�ponse :" + this.reponse + "\n";
-		res += "Temps d'�x�cution : " + this.tempsExec + " millisecondes\n";
+		res += "Reponse :" + this.reponse + "\n";
+		res += "Temps d'execution : " + this.tempsExec + " millisecondes\n";
 		return res;
 	}
 }
