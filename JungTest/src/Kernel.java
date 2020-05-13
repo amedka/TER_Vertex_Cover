@@ -73,7 +73,7 @@ public class Kernel {
 		for (Integer  value : graph.getVertices()) {
 			Graph<Integer, String> gtemp = graph;
 			gtemp.removeVertex(value);
-			if (brutForce(k--, gtemp)){
+			if (brutForce(k-1, gtemp)){
 				return true;
 			}
 		}
